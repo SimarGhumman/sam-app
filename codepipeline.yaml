@@ -468,7 +468,7 @@ Resources:
                   - "codebuild:StartBuild"
                   - "codebuild:BatchGetBuilds"
                 Resource:
-                  Uncomment the line below to enable the unit-tests
+                  # Uncomment the line below to enable the unit-tests
                   - !GetAtt CodeBuildProjectUnitTest.Arn
                   - !If
                     - IsFeatureBranchPipeline

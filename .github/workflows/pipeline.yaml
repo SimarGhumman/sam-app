@@ -10,10 +10,10 @@ on:
       - 'feature**'
 
 env:
-  PIPELINE_USER_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  PIPELINE_USER_ACCESS_KEY_ID: ${{ secrets.AKIA47CRWFS4ATYVQCEK }}
+  PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.QtfFhcP2MdE7tJ5lLPB62+3wFMnpp/4giIAcFQxE }}
   SAM_TEMPLATE: template.yaml
-  TESTING_STACK_NAME: sam-app-dev
+  TESTING_STACK_NAME: sam-app
   TESTING_PIPELINE_EXECUTION_ROLE: arn:aws:iam::891377036472:role/aws-sam-cli-managed-dev-pipel-PipelineExecutionRole-PvaojHpxfbCI
   TESTING_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::891377036472:role/aws-sam-cli-managed-dev-p-CloudFormationExecutionRo-Dtde1MrKBzhQ
   TESTING_ARTIFACTS_BUCKET: aws-sam-cli-managed-dev-pipeline-r-artifactsbucket-cv0jkelwzpmh
@@ -22,7 +22,7 @@ env:
   # testing "sam package" and "sam deploy" commands.
   # TESTING_IMAGE_REPOSITORY = '0123456789.dkr.ecr.region.amazonaws.com/repository-name'
   TESTING_REGION: us-east-2
-  PROD_STACK_NAME: sam-app-prod
+  PROD_STACK_NAME: sam-app
   PROD_PIPELINE_EXECUTION_ROLE: arn:aws:iam::891377036472:role/aws-sam-cli-managed-prod-pipe-PipelineExecutionRole-EbAuoInusQg7
   PROD_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::891377036472:role/aws-sam-cli-managed-prod--CloudFormationExecutionRo-nsPpS6Acisa0
   PROD_ARTIFACTS_BUCKET: aws-sam-cli-managed-prod-pipeline--artifactsbucket-7trfxdqn5hue
@@ -37,18 +37,9 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
-      - name: Check out Repository
-        uses: actions/checkout@v3
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: 11
-          distribution: 'temurin'
-      - name: Packaging Jar
-        id: packaging-jar
-        shell: bash
-        run: cd HelloWorldFunction ; mvn clean install
-
+      - uses: actions/checkout@v3
+      - run: |
+          # trigger the tests here
 
   delete-feature:
     if: startsWith(github.event.ref, 'feature') && github.event_name == 'delete'
